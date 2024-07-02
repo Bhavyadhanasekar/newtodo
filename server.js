@@ -4,7 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 10000;  // Port configuration for Render
+const port = process.env.PORT || 5000;  // Port configuration for Render
 
 // Middleware
 app.use(cors({
@@ -15,9 +15,16 @@ app.use(cors({
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI);
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+const connectToMongoDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log('MongoDB connected');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+  }
+};
+
+connectToMongoDB();
 
 // Define Schemas and Models
 const todoSchema = new mongoose.Schema({
@@ -78,8 +85,8 @@ app.delete('/todos/:id', async (req, res) => {
   }
 });
 
-// Remove static file serving and wildcard route for frontend
-// Commented out as it's not needed
+// Serve static files from the React app
+// Commented out for backend-only deployment
 // if (process.env.NODE_ENV === 'production') {
 //   app.use(express.static(path.join(__dirname, 'client', 'build')));
 //   app.get('*', (req, res) => {
