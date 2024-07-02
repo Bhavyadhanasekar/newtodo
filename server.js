@@ -34,6 +34,12 @@ const todoSchema = new mongoose.Schema({
 const Todo = mongoose.model('Todo', todoSchema);
 
 // API Routes
+
+app.get('/', (req, res) => {
+  res.send('Welcome to the backend API');
+});
+
+
 app.post('/todos', async (req, res) => {
   const { title, description } = req.body;
   try {
