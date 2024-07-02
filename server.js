@@ -87,14 +87,14 @@ app.delete('/todos/:id', async (req, res) => {
   }
 });
 
-// Serve static files from the React app
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'todo-frontend', 'build')));
+// // Serve static files from the React app
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, 'todo-frontend', 'build')));
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'todo-frontend', 'build', 'index.html'));
-  });
-}
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, 'todo-frontend', 'build', 'index.html'));
+//   });
+// }
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
